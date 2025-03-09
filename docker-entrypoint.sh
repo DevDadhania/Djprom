@@ -34,6 +34,7 @@ echo "PostgreSQL is up - continuing"
 echo "Applying database migrations..."
 python notes_project/manage.py migrate --noinput
 
+
 # Collect static files
 echo "Collecting static files..."
 python notes_project/manage.py collectstatic --noinput

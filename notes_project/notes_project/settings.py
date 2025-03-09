@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 
 from django.core.wsgi import get_wsgi_application
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,13 +23,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
+
+
+# Replace your current SECRET_KEY line with:
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-s%^69^j^u%l2mtp38-+cf*2!^10katz=*s0c$^f=52*!5j8vdt')
+
+# Replace your current DEBUG line with:
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+# Replace your current ALLOWED_HOSTS line with:
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*', cast=lambda v: [s.strip() for s in v.split(',')])
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-s%^69^j^u%l2mtp38-+cf*2!^10katz=*s0c$^f=52*!5j8vdt'
+#SECRET_KEY = 'django-insecure-s%^69^j^u%l2mtp38-+cf*2!^10katz=*s0c$^f=52*!5j8vdt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -88,14 +101,15 @@ application = get_wsgi_application()
 
 
 
+# Then replace your current DATABASES configuration with this:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'database-1.c14wme22qzjq.ap-south-1.rds.amazonaws.com',
-        'PORT': '5432',
+        'NAME': config('DB_NAME', default='test_db'),
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASSWORD', default='postgres'),
+        'HOST': config('DB_HOST', default='database-1.c14wme22qzjq.ap-south-1.rds.amazonaws.com'),
+        'PORT': config('DB_PORT', default='5432'),
     }
 }
 

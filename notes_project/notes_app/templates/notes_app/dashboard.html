@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        .note {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dashboard</h1>
+    <div style="max-height: 400px; overflow-y: scroll;">
+        {% for note in notes %}
+            <div class="note">
+                <h2>{{ note.title }} (No. {{ note.id }})</h2>
+                <p>{{ note.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'notes' %}">Go to Notes</a>
+</body>
+</html>
+<!-- The dashboard.html template is similar to the notes.html template, but it displays all notes in a scrollable list. -->
